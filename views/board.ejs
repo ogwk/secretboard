@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘密の掲示板</title>
+</head>
+<body>
+    <h1>秘密の掲示板</h1>
+    <form action="/posts/logout" method="post">
+        <input type="submit" value="ログアウト"/>
+    </form>
+    
+    <form action="/posts" method="post">
+        <dev>
+            <label>新規投稿</label>
+        </dev>        
+        <div>
+            <input required type="testarea" name="content" cols=40 rows=4/>
+        </div>
+        <dev>
+            <input type="submit" value="投稿"/>
+        </dev>
+    </form>
+
+    <label>投稿一覧</label>
+    <div>
+        <% posts.forEach(post => {%>
+            <table>
+                <thead>
+                    <tr>
+                        <td><%=post.id%>:<%=post.trackingCookie%></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%=post.content%></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr><td>投稿日時：<%=post.createdAt%></td></tr>
+                    <tr><td>投稿者:</td></tr>
+                </tfoot>
+            </table>
+        <%})%>
+
+    </div>
+
+</body>
+</html>

@@ -1,14 +1,39 @@
 'use strict'
 const express = require('express');
-const app = express();
+//const app = express();
+
+//ポート番号
+const port = 8000;
+
+//外部ファイル
+const routers = require('./routes/router');
+const app = require('./server');
+
+//midleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+//ビュー
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 
-//routing
-app.get('/posts',);
-app.get('/posts/detail',);
-app.post('/posts/detail',);
+
+app.get('/',routers.index);
+app.get('/posts',routers.showboard);
+app.post('/posts',routers.addcontent);
+app.get('/signup',routers.showsignup);
+
+app.post('/posts/logout',routers.logout);
+
+
+/*
+
+
 app.post('/posts?delete=1',);
-app.get('/logout',);
+
 app.post('/favicon.ico',);
-app.get('/signup',);
+
 app.post('/signup',);
+*/
+

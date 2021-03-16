@@ -1,0 +1,21 @@
+GET     /posts          投稿一覧画面表示
+POST    /posts          投稿とリダイレクト
+POST    /posts?detail=1 削除
+GET     /posts/logout         ログアウト
+GET     /favicon        ファビコン
+GET     /signup         ユーザー登録画面
+POST    /signup         ユーザー登録
+
+view
+ログイン画面        index.ejs
+投稿一覧画面        board.ejs
+ユーザー登録画面     signup.ejs
+
+
+
+①クッキー作成
+Cookie がついていなければ追跡するための情報を付与
+Cookie がついていればなにもしない
+
+yarn add cookies@0.5.1
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秘密の掲示板</title>
+</head>
+<body>
+    <h1>秘密の掲示板</h1>
+    <form action="/posts" method="post">
+        <div>
+            <label>ユーザー名：</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label>パスワード：</label>
+            <input type="text" name="password">
+        </div>
+        <div>
+            <input type="submit" value="ログイン"/>
+        </div>
+    </form>
+    
+    <form action="/signup" method="get">
+        <input type="submit" value="ユーザー登録"/>
+    </form>
+
+</body>
+</html>
