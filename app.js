@@ -20,17 +20,18 @@ app.set('view engine', 'ejs');
 
 
 app.get('/',routers.index);
+app.post('/posts/logout',routers.logout);
+app.post('/posts/delete',routers.delete);
 app.get('/posts',routers.showboard);
-app.post('/posts',routers.addcontent);
+//app.post('/posts',routers.addcontent);
 app.get('/signup',routers.showsignup);
 
-app.post('/posts/logout',routers.logout);
 
 
 /*
 
 
-app.post('/posts?delete=1',);
+
 
 app.post('/favicon.ico',);
 

@@ -39,7 +39,16 @@
                 </tbody>
                 <tfoot>
                     <tr><td>投稿日時：<%=post.createdAt%></td></tr>
-                    <tr><td>投稿者:</td></tr>
+                    <tr><td>投稿者:<%=user%></td></tr>
+                    <tr><td>
+                        <%const isDeletable = (user === post.postedBy)%>
+                        <%if(isDeletable){%>
+                            <form action="/posts/delete" method="post">
+                                <input type="hidden" name="id" value=<%=post.id%>>
+                                <input type="submit" value="削除">
+                            </form>
+                        <%}%>
+                    </td></tr>
                 </tfoot>
             </table>
         <%})%>

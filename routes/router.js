@@ -3,7 +3,8 @@
 const express = require('express');
 const app = express();
 
-const auth = require('basic-auth')
+const auth = require('basic-auth');
+
 
 //cookie
 const Cookies = require('cookies');
@@ -17,41 +18,44 @@ const BasicAuth = require('../BasicAuth');
 const Post = require('../sequeliza');
 
 exports.index = async function(req, res){
-    //console.log(res);
+    console.log('index');
+    const user = BasicAuth.getuser;
     const cookies = new Cookies(req,res);
 
     await addtrackingcookie(cookies);
 
     Post.findAll().then(posts => {
-        console.log(posts.rowCount);
-        res.render('board',{posts:posts});
+        res.render('board',{
+            posts:posts,
+            user:user.name
+        });
     })
 }
 
 exports.showboard = function(req, res){
-
+    console.log('shoboard');
 
     
     res.redirect('board');
 }
 
 exports.addcontent = function(req, res){
+    console.log('addcontent');
     const content = req.body.content;
     const cookies = new Cookies(req,res);
-    console.log(cookies.get(trackingIdKey));
-
-    //データ作成
-    Post.create({
-        content: content,
-        trackingCookie: cookies.get(trackingIdKey),
-        postedBy: req.user
-    }).then(() => {
-        res.redirect('/');
-    }).catch((e) =>{
-        console.log(e);
-    });
-
-    
+    const user = BasicAuth.getuser;
+    if(content !== ''||!content){
+        //データ作成
+        Post.create({
+            content: content,
+            trackingCookie: cookies.get(trackingIdKey),
+            postedBy: user.name
+        }).then(() => {
+            res.redirect('/');
+        }).catch((e) =>{
+            console.log(e);
+        });
+    }
     //res.redirect('board',{content:content});
 }
 
@@ -69,7 +73,22 @@ exports.logout = function(req, res){
     //console.log(res);
 }
 
-
+exports.delete = function(req, res){
+    console.log('delete');
+    const user = BasicAuth.getuser;
+    Post.findByPk(req.body.id)
+    .then((post) => {
+        console.log(user);
+        if (user.name === post.postedBy){
+            post.destroy().then(() =>{
+                res.redirect('/');
+            });
+        }
+    })
+    .catch(e => {
+        console.log('error' + e);
+    });
+}
 
 
 function addtrackingcookie(cookies){
